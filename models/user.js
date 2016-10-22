@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     firstname: String,
     lastname: String,
-    teamID: String,
+    // teamID: String,
     userID: String,
     userToken: String,
     preferences: {
@@ -28,15 +28,13 @@ userSchema.statics.add = function(uid, token) {
     });
     return u;
 };
-userSchema.methods.updateUserInfo = function(fn, ln, tid, cb) {
+userSchema.methods.updateUserInfo = function(fn, ln, cb) {
     this.firstname = fn;
     this.lastname = ln;
-    this.teamID = tid;
+    // this.teamID = tid;
     this.save(cb);
 };
 userSchema.methods.updateToken = function(token, cb) {
-    // this.model('User').update({userID: uid}, {$set: {userToken: token}});
-    // this.update({userID: uid}, {$set: {userToken: token}});
     this.userToken = token;
     this.save(cb);
 };

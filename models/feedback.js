@@ -4,11 +4,12 @@ var Schema = mongoose.Schema;
 var feedbackSchema = new Schema({
     title : String,
     content: String,
-    teamID: String,
+    // teamID: String,
     createdDate : Date
 });
     
-feedbackSchema.statics.addFeedback = function(t, cn, tid) {
+// feedbackSchema.statics.addFeedback = function(t, cn, tid) {
+feedbackSchema.statics.addFeedback = function(t, cn) {
     var f = new Feedback({
         title: t,
         content: cn,
@@ -26,15 +27,20 @@ feedbackSchema.statics.addFeedback = function(t, cn, tid) {
     return f;
 };
 
-feedbackSchema.statics.getLatest = function(tid){
-    // var feedbackarray;
-    // Feedback.find({}, function(err, fbarr) {
-    //     if (!err){
-    //         feedbackarray = fbarr;
-    //     }
-    // });
-    // return feedbackarray.limit(25).sort('createdDate');
-    var query = Feedback.find({'teamID': tid}).limit(25).sort({createdDate: -1});
+// feedbackSchema.statics.getLatest = function(tid){
+//     var query = Feedback.find({'teamID': tid}).limit(25).sort({createdDate: -1});
+    
+//     query.exec(function(err, feedbackarray){
+//         if (!err) {
+//             return feedbackarray;
+//         } else {
+//             return "error" + err;
+//         }
+//     });
+// };
+
+feedbackSchema.statics.getLatest = function(){
+    var query = Feedback.find({}).limit(25).sort({createdDate: -1});
     
     query.exec(function(err, feedbackarray){
         if (!err) {

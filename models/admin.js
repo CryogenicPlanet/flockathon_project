@@ -25,7 +25,7 @@ adminSchema.statics.add = function(user){
             return err;
         }
         else {
-            console.log("Feedback Saved");
+            console.log("Admin added");
         }
     });
     return a;
