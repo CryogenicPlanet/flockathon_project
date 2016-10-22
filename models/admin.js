@@ -15,7 +15,7 @@ adminSchema.statics.isAdmin = function(uid) {
     else {
         return(false);
     }
-}
+};
 
 var Admin = mongoose.model('Admin', adminSchema);
 
