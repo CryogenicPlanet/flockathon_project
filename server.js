@@ -16,7 +16,10 @@ var server = app.listen(port);
 
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
-db.on
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Connected to DB");
+});
 var funcRoute = new Map();
 
 // Mongoose Models
@@ -78,11 +81,11 @@ app.get('/widget',jsonParser,function(req,res){
     console.log(flockEvent.userId);
     //check db is uid is admin
     var admin;
-    if (admin == 0)[
+    if (admin == 0){
         res ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
-        ] else if(admin == 1){[
+        } else if(admin == 1){
             res ="https://flockathon-cryogenicplanet.c9users.io/widgests/admin"
-            ]   
+        }
     res.send();
 });
 
