@@ -13,27 +13,30 @@ var userSchema = new Schema({
 });
 
 
-userSchema.statics.add = function(fn, ln, tid, uid) {
+userSchema.statics.add = function(uid, token) {
     var u = new User({
-        firstname: fn,
-        lastname: ln,
-        teamID: tid,
-        userID: uid
+        userID: uid,
+        userToken: token
     });
     u.save(function (err) {
         if (err) {
-            return err;
+            console.log(err);
         }
         else {
             console.log("User added.");
         }
     });
+    return u;
 };
-
-userSchema.methods.updateToken = function(uid, token, cb) {
-    this.model('User').update({userID: uid}, {$set: {userToken: token}});
-}
-
+userSchema.methods.updateUserInfo = function(fn, ln, tid, cb) {
+    return this;
+};
+userSchema.methods.updateToken = function(token, cb) {
+    // this.model('User').update({userID: uid}, {$set: {userToken: token}});
+    // this.update({userID: uid}, {$set: {userToken: token}});
+    this.userToken = token;
+    cb(this);
+};
 
 
 var User  = mongoose.model('User', userSchema);
