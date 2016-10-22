@@ -47,14 +47,11 @@ function app_install(req, res) {
 function client_pressButton(req,res){
     console.log(req.body);
     var button_route = new Map();
-    button_route.set("chatTabButton",chat_tab)
-    
+    button_route.set("chatTabButton", chat_tab);
     var button_type = req.body.button;
-    
-    
     res = button_route.get(button_type)(req,res);
     function chat_tab(req,res){
-        var msg = "Feedback Form"
+        var msg = "Feedback Form";
         var to_sent = req.body.userId;
         var attachment = [{
             "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
