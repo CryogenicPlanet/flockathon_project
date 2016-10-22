@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+  <nav>
+    <div class="nav-wrapper green lighten-3">
+      <a href="#" class="brand-logo center orange-text text-darken-3">Reviews:</a>
+    </div>
+  </nav>
+
+  <nav>
+<div class = "nav-wrapper blue lighten-4">
+<a href="#" class="brand-logo center orange-text text-darken-3"><!--Title--></a>
+</div>
+</nav>
+        
+  <nav>
+    <div class="nav-wrapper green lighten-3">
+      <a href="#" class="brand-logo center orange-text text-darken-3">Feedback:</a>
+    </div>
+  </nav>
+
+<ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"> <!--Title--> </div>
+      <div class="collapsible-body"><p> <!--data from database--> </p></div>
+    </li>
+  </ul>
+
+    </body>
+  </html>
