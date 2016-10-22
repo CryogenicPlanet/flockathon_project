@@ -14,6 +14,13 @@ var requestify = require('requestify');
 var http = require('http');
 var funcRoute = new Map();
 
+// Mongoose Models
+var User = require("models/user");
+var Admin = require("models/admin");
+var Activity = require("models/activity");
+var Team = require("models/team");
+var ActivityTemplate = require("models/activitytemplate");
+
 // Event Name-Function Mappings
 funcRoute.set("app.install", install)
 funcRoute.set("client.pressButton",Button_press)
@@ -50,7 +57,6 @@ function Button_press(req,res){
 }
 // HTTP Requests
 app.post('/events', jsonParser, function(req, res) {
-    console.log("New event");
     console.log(req.body);
     var event_name =req.body.name;
     res = funcRoute.get(event_name)(req, res);
