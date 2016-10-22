@@ -77,6 +77,13 @@ app.get('/widget',jsonParser,function(req,res){
    var flockEvent = JSON.parse(req.query.flockEvent);
     console.log(flockEvent.userId);
     //check db is uid is admin
+    var admin;
+    if (admin == 0)[
+        res ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
+        ] else if(admin == 1){[
+            res ="https://flockathon-cryogenicplanet.c9users.io/widgests/admin"
+            ]   
+    res.send();
 });
 
 app.post('/feedback', jsonParser, function(req, res) {
