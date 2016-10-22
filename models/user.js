@@ -6,6 +6,9 @@ var userSchema = new Schema({
     lastname: String,
     teamID: String,
     userID: String,
+    preferences: {
+        // user preferences go here
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
