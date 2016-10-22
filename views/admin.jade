@@ -21,8 +21,9 @@ script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js'
   .row
   .col.s12  
     
-    ul.collection.with-header
+    ul.collapsible(data-collapsible='accordion')
   li.collection-header
     h4 Feedback
     for each title in feedback_array
-    li.collection-item = title
+    li.collapsible-header = title
+    li.collapsible-body = feedback
