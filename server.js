@@ -21,6 +21,7 @@ var Admin = require("./models/admin");
 var Activity = require("./models/activity");
 var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
+var Feedback = require("./models/feedback");
 
 // Event Name-Function Mappings
 var funcRoute = new Map();
