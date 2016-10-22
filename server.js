@@ -1,5 +1,6 @@
 // Environment Variables
 var port = process.env.PORT;
+var bot_token = "e904ab93-3bcc-4d9c-80aa-45fd83f07c7c";
 
 // Server
 var express = require('express');
@@ -15,6 +16,7 @@ var funcRoute = new Map();
 
 // Event Name-Function Mappings
 funcRoute.set("app.install", install)
+funcRoute.set("client.PressButton",Button_press)
 
 // Event Functions
 function install(req, res) {
@@ -22,6 +24,27 @@ function install(req, res) {
     console.log(req.body);
     res.status(200);
     return res;
+}
+function Button_press(req,res){
+    var button_route = new Map();
+    button_route.set("chatTabButton",chat_tab)
+    
+    var button_type = req.body.button;
+    
+    
+    res = button_route.get(button_type)(req,res);
+    function chat_tab(req,res){
+        var msg = "Feedback Form"
+        var to_sent = req.body.userId;
+        var attachment = [{
+            "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
+            "views" : {
+                "widget": {"src" : "","width": 400,"height": 400}
+            }
+           } ];
+        send_attachments(msg,to_sent,bot_token,attachment);
+    }
+    
 }
 // HTTP Requests
 app.post('/events', jsonParser ,function (req, res) {
@@ -47,5 +70,14 @@ function get_roster(token) {
         // Get the response body (JSON parsed or jQuery object for XMLs)
         response.getBody();
         console.log(response);
+    });
+}
+function send_attachments(msg,to_sent,from,attachment){
+        var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from + "&attachments=" + attachment;
+    console.log(requestURL);
+    requestify.get(requestURL)
+         .then(function(response) {
+        // Get the response body (JSON parsed or jQuery object for XMLs)
+        response.getBody();
     });
 }
