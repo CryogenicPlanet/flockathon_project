@@ -48,11 +48,11 @@ feedbackSchema.statics.getLatest = function(){
     //         return "error" + err;
     //     }
     // });
-    
+    var feedbackarray;
     Feedback.find({}, function(err, feedbackarray) {
         if (err) throw err;
-        return(feedbackarray);
     });
+    return(feedbackarray);
 };
 
 var Feedback  = mongoose.model('Feedback', feedbackSchema);
