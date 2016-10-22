@@ -15,11 +15,11 @@ var http = require('http');
 var funcRoute = new Map();
 
 // Mongoose Models
-var User = require("models/user");
-var Admin = require("models/admin");
-var Activity = require("models/activity");
-var Team = require("models/team");
-var ActivityTemplate = require("models/activitytemplate");
+// var User = require("models/user");
+// var Admin = require("models/admin");
+// var Activity = require("models/activity");
+// var Team = require("models/team");
+// var ActivityTemplate = require("models/activitytemplate");
 
 // Event Name-Function Mappings
 funcRoute.set("app.install", app_install)
