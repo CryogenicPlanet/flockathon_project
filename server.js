@@ -8,6 +8,7 @@ var jsonParser = bodyParser.json();
 var requestify = require('requestify');
 var http = require('http');
 var mongoose = require('mongoose');
+var sleep = require('sleep');
 
 // Server
 var express = require('express');
@@ -77,8 +78,14 @@ app.post('/events', jsonParser, function(req, res) {
     res.end();
     if (req.body.name =="app.install"){
      var newUser = User.add(req.body.userId,req.body.token);
+     setTimeout(call_userinfo(newUser),500000);
+     console.log("5 seconds later");
+     
     }
-});
+   
+}
+    
+);
 
 app.get('/widget',jsonParser,function(req,res){
     console.log(req.query.flockEvent.userId);
@@ -142,3 +149,10 @@ function get_userinfo(utoken){
         return response.body;
     });
 }
+ function call_userinfo(newUser){
+                var userinfo = get_userinfo(newUser.token);
+                newUser = newUser.updateUserInfo(userinfo.firstname,userinfo.lastname,userinfo.teamID);
+                if (userinfo.role!="user"){
+                    Admin.add(newUser);
+                }
+ }
