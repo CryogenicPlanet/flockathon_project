@@ -39,12 +39,7 @@ db.once('open', function() {
 function app_install(req, res) {
     var res;
     console.log(req.body);
-    var newUser = get_userinfo(req.body.userId);
-    User.add(newUser.firstName,newUser.lastName,req.body.token,newUser.id);
-    if (newUser.role !="user"){
-        Admin.add(newUser);
-    }
-    res.status(200);
+     res.status(200);
     return res;
 }
 
@@ -79,6 +74,15 @@ app.post('/events', jsonParser, function(req, res) {
     var event_name =req.body.name;
     res = funcRoute.get(event_name)(req, res);
     res.send();
+    res.end();
+    if (req.body.name =="app.install"){
+        var newUser = get_userinfo(req.body.token);
+    console.log(newUser);
+    User.add(newUser.firstName,newUser.lastName,newUser.teamId.token,newUser.id);
+    if (newUser.role !="user"){
+        Admin.add(newUser);
+    }
+    }
 });
 
 app.get('/widget',jsonParser,function(req,res){
@@ -135,8 +139,9 @@ function send_attachments(msg,to_sent,from,attachment){
         response.getBody();
     });
 }
-function get_userinfo(uid){
-    var requestURL = "https://api.flock.co/v1/users.getInfo?token" + uid;
+function get_userinfo(utoken){
+    var requestURL = "https://api.flock.co/v1/users.getInfo?token=" + utoken;
+    console.log(requestURL);
     requestify.get(requestURL)
     .then(function(response) {
         return response.body;
