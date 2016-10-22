@@ -7,7 +7,7 @@ var feedbackSchema = new Schema({
     createdDate : Date
     });
     
-    feedbackSchema.statics.addfeedback = function(tn,cn){
+    feedbackSchema.statics.addFeedback = function(tn,cn){
         var f = new Feedback({
             title : tn,
             content : cn,

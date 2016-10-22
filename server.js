@@ -96,7 +96,7 @@ app.get('/widget',jsonParser,function(req,res){
 });
 
 app.post('/feedback', jsonParser, function(req, res) {
-    // add req.title,req.content
+    Feedback.addFeedback(req.title, req.content);
 });
 
 app.use(express.static('static'));
