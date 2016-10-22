@@ -71,6 +71,12 @@ app.post('/events', jsonParser, function(req, res) {
     res = funcRoute.get(event_name)(req, res);
     res.send();
 });
+app.get('/widget',jsonParser,function(req,res){
+    console.log(req.query.flockEvent.userId);
+   var flockEvent = JSON.parse(req.query.flockEvent);
+    console.log(flockEvent.userId);
+    //check db is uid is admin
+});
 
 app.post('/feedback', jsonParser, function(req, res) {
     
