@@ -15,4 +15,6 @@ var activityTemplateSchema = new Schema({
    questions: [questionSchema]
 });
 
-module.exports = mongoose.model('activityTemplate', activityTemplateSchema);
+var ActivityTemplate = mongoose.model('activityTemplate', activityTemplateSchema);
+
+module.exports = ActivityTemplate;

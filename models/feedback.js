@@ -25,7 +25,7 @@ feedbackSchema.statics.addFeedback = function(tn,cn) {
 
 feedbackSchema.statics.getLatest = function(){
     return Feedback.find().limit(25).sort('createdDate');
-}
+};
 
 var Feedback  = mongoose.model('Feedback', feedbackSchema);
 
