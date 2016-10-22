@@ -38,7 +38,7 @@ feedbackSchema.statics.getLatest = function(tid){
     
     query.exec(function(err, feedbackarray){
         if (!err) {
-            console.log(feedbackarray)
+            return feedbackarray;
         }
     });
 };
