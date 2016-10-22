@@ -51,7 +51,7 @@ feedbackSchema.statics.getLatest = function(){
     
     Feedback.find({}, function(err, feedbackarray) {
         if (err) throw err;
-        console.log(feedbackarray);
+        return(feedbackarray);
     });
 };
 
