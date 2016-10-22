@@ -60,7 +60,7 @@ function client_pressButton(req,res){
         var attachment = [{
             "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
             "views" : {
-                "widget": {"src" : "https://flockathon-cryogenicplanet.c9users.io/Static/feedback.html","width": 400,"height": 400}
+                "widget": {"src" : "https://flockathon-cryogenicplanet.c9users.io/widgets/feedback.html","width": 400,"height": 400}
             }
            } ];
            attachment = JSON.stringify(attachment);
@@ -90,7 +90,7 @@ app.get('/widget',jsonParser,function(req,res){
         res.render("/widgests/not_admin");
         } else {
             if (flockEvent.button =="appLauncherButton"){
-            res.render("/views/admin.jade", {feedback_array : Feedback.getLatest()});
+            res.render('/views/admin', {feedback_array : Feedback.getLatest()});
 
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = ""; //create new review page
@@ -99,7 +99,7 @@ app.get('/widget',jsonParser,function(req,res){
     res.send();
 });
 
-app.post('/feedback', jsonParser, function(req, res) {
+app.post('/widgets/feedback', jsonParser, function(req, res) {
     Feedback.addFeedback(req.title, req.content);
 });
 
