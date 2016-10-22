@@ -7,7 +7,7 @@ var activityTemplateSchema = new Schema({
        ownerID: String
    },
    createdDate: Date,
-   questions: 
+   questions: {}
 });
 
 module.exports = mongoose.model('activityTemplate', activityTemplateSchema);

@@ -5,3 +5,5 @@ var questionSchema = new Schema({
    questionType: String,
    content: String
 });
+
+module.exports = mongoose.model('question', questionSchema);
