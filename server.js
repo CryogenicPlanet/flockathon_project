@@ -76,12 +76,7 @@ app.post('/events', jsonParser, function(req, res) {
     res.send();
     res.end();
     if (req.body.name =="app.install"){
-        var newUser = get_userinfo(req.body.token);
-    console.log(newUser);
-    User.add(newUser.firstName,newUser.lastName,newUser.teamId.token,newUser.id);
-    if (newUser.role !="user"){
-        Admin.add(newUser);
-    }
+     var newUser = User.add(req.body.userId,req.body.token);
     }
 });
 
