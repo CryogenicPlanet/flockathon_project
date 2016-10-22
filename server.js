@@ -25,7 +25,7 @@ var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
 
 // Pug compiled files
-var compiledAdmin = pug.compileFile('admin.pug');
+var compiledAdmin = pug.compileFile('./views/admin.pug');
 
 // Event Name-Function Mappings
 var funcRoute = new Map();
