@@ -20,11 +20,11 @@ db.on
 var funcRoute = new Map();
 
 // Mongoose Models
-// var User = require("models/user");
-// var Admin = require("models/admin");
-// var Activity = require("models/activity");
-// var Team = require("models/team");
-// var ActivityTemplate = require("models/activitytemplate");
+var User = require("./models/user");
+var Admin = require("./models/admin");
+var Activity = require("./models/activity");
+var Team = require("./models/team");
+var ActivityTemplate = require("./models/activitytemplate");
 
 // Event Name-Function Mappings
 funcRoute.set("app.install", app_install)
@@ -71,6 +71,7 @@ app.post('/events', jsonParser, function(req, res) {
     res = funcRoute.get(event_name)(req, res);
     res.send();
 });
+
 app.get('/widget',jsonParser,function(req,res){
     console.log(req.query.flockEvent.userId);
    var flockEvent = JSON.parse(req.query.flockEvent);
