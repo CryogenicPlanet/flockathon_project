@@ -6,6 +6,7 @@ var userSchema = new Schema({
     lastname: String,
     teamID: String,
     userID: String,
+    userToken: String,
     preferences: {
         // user preferences go here
     }
@@ -28,6 +29,11 @@ userSchema.statics.add = function(fn, ln, tid, uid) {
         }
     });
 };
+
+userSchema.methods.updateToken = function(uid, token, cb) {
+    this.model('User').update({userID: uid}, {$set: {userToken: token}});
+}
+
 
 
 var User  = mongoose.model('User', userSchema);
