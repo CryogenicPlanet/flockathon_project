@@ -22,19 +22,19 @@ var Team = require("models/team");
 var ActivityTemplate = require("models/activitytemplate");
 
 // Event Name-Function Mappings
-funcRoute.set("app.install", install)
-funcRoute.set("client.pressButton",Button_press)
+funcRoute.set("app.install", app_install)
+funcRoute.set("client.pressButton", client_pressButton)
 
 // Event Functions
 
-function install(req, res) {
+function app_install(req, res) {
     var res;
     console.log(req.body);
     res.status(200);
     return res;
 }
 
-function Button_press(req,res){
+function client_pressButton(req,res){
     var button_route = new Map();
     button_route.set("chatTabButton",chat_tab)
     
