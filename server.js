@@ -14,6 +14,9 @@ var express = require('express');
 var app = express();
 var server = app.listen(port);
 
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on
 var funcRoute = new Map();
 
 // Mongoose Models
@@ -37,6 +40,7 @@ function app_install(req, res) {
 }
 
 function client_pressButton(req,res){
+    console.log(req.body);
     var button_route = new Map();
     button_route.set("chatTabButton",chat_tab)
     
