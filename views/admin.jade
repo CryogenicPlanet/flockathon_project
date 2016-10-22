@@ -1,0 +1,28 @@
+doctype html
+head
+  // Compiled and minified CSS
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css')
+  // Compiled and minified JavaScript
+  // Import Google Icon Font
+  link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+  // Import materialize.css
+  // Let browser know website is optimized for mobile
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+// Import jQuery before materialize.js
+script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
+ script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
+
+.navbar-fixed
+  nav
+    .nav-wrapper.teal.darken-1
+      a.brand-logo.center(href='#') EmploiBack
+    .container 
+  .row
+  .col.s12  
+    
+    ul.collection.with-header
+  li.collection-header
+    h4 Feedback
+    for each title in feedback_array
+    li.collection-item = title
