@@ -9,7 +9,7 @@ var requestify = require('requestify');
 var jade = require('jade');
 var http = require('http');
 var mongoose = require('mongoose');
-
+var pug = require('pug');
 // Server
 var express = require('express');
 var app = express();
@@ -23,6 +23,9 @@ var Activity = require("./models/activity");
 var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
+
+// Pug compiled files
+var compiledAdmin = pug.compileFile('admin.pug');
 
 // Event Name-Function Mappings
 var funcRoute = new Map();

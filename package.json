@@ -25,6 +25,7 @@
     "flockos": "flockchat/flockos-node-sdk",
     "jade": "^1.11.0",
     "mongoose": "^4.6.4",
+    "pug": "^2.0.0-beta6",
     "request": "^2.75.0",
     "requestify": "^0.2.4"
   }
