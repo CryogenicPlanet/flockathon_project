@@ -11,19 +11,22 @@ var bodyParser = require('body-parser');
 var requestify = require('requestify');
 var http = require('http');
 var funcRoute = new Map();
-var event_name;
+
+// Event Name-Function Mappings
 funcRoute.set("app.install", install)
 
+// Event Functions
 function install(reqbody) {
+    var res;
     console.log(reqbody);
+    res.status(200);
+    return res;
 }
-
+// HTTP Requests
 app.post('/events', jsonParser ,function (res,req){
     console.log("New event");
-    console.log(reg.body);
-        res.status(200);
-         res.send("");
-         event_name =req.body.name;
-          funcRoute.get(event_name)(req.body);
-
+    console.log(req.body);
+    var event_name =req.body.name;
+    res = funcRoute.get(event_name)(req.body);
+    res.send();
 });
