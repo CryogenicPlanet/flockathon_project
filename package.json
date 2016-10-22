@@ -1,0 +1,22 @@
+{
+  "name": "flockathon_project",
+  "version": "1.0.0",
+  "description": "A project for the flockathon",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryogenicPlanet/flockathon_project.git"
+  },
+  "keywords": [
+    "flock"
+  ],
+  "author": "CryogenicPlanet, lunaroyster, Dominic1234",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CryogenicPlanet/flockathon_project/issues"
+  },
+  "homepage": "https://github.com/CryogenicPlanet/flockathon_project#readme"
+}
