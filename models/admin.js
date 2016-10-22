@@ -16,6 +16,20 @@ adminSchema.statics.isAdmin = function(uid) {
         return(false);
     }
 };
+adminSchema.statics.add = function(user){
+    var a = new Admin ({
+        relatedUser : user.uid
+    });
+     a.save(function (err) {
+        if (err) {
+            return err;
+        }
+        else {
+            console.log("Feedback Saved");
+        }
+    });
+    
+};
 
 var Admin = mongoose.model('Admin', adminSchema);
 

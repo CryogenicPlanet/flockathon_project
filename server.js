@@ -39,6 +39,11 @@ db.once('open', function() {
 function app_install(req, res) {
     var res;
     console.log(req.body);
+    var newUser = get_userinfo(req.body.userId);
+    User.add(newUser.firstName,newUser.lastName,req.body.token,newUser.id);
+    if (newUser.role !="user"){
+        Admin.add(newUser);
+    }
     res.status(200);
     return res;
 }
@@ -81,12 +86,12 @@ app.get('/widget',jsonParser,function(req,res){
    var flockEvent = JSON.parse(req.query.flockEvent);
     console.log(flockEvent.userId);
     //check db is uid is admin
-    var admin;
-    if (admin == 0){
-        res.render = "https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin";
-        } else if(admin == 1){
+    
+    if (!Admin.isAdmin(flockEvent.userId)){
+        res.render("/widgests/not_admin");
+        } else {
             if (flockEvent.button =="appLauncherButton"){
-            res.render("/views/admin.jade", {feedback_array : feedback.getLatest()});
+            res.render("/views/admin.jade", {feedback_array : Feedback.getLatest()});
 
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = ""; //create new review page
@@ -128,5 +133,12 @@ function send_attachments(msg,to_sent,from,attachment){
          .then(function(response) {
         // Get the response body (JSON parsed or jQuery object for XMLs)
         response.getBody();
+    });
+}
+function get_userinfo(uid){
+    var requestURL = "https://api.flock.co/v1/users.getInfo?token" + uid;
+    requestify.get(requestURL)
+    .then(function(response) {
+        return response.body;
     });
 }
