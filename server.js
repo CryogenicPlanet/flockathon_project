@@ -75,7 +75,7 @@ app.post('/events', jsonParser, function(req, res) {
     res.end();
     if (req.body.name =="app.install"){
      var newUser = User.add(req.body.userId,req.body.token);
-    // Admin.add(newUser);
+     Admin.add(newUser);
      //setTimeout(call_userinfo(newUser),500000);
 
     }
@@ -85,16 +85,15 @@ app.post('/events', jsonParser, function(req, res) {
 );
 
 app.get('/widget',jsonParser,function(req,res){
-    console.log(req.query.flockEvent.userId);
    var flockEvent = JSON.parse(req.query.flockEvent);
     console.log(flockEvent.userId);
     //check db is uid is admin
     
-    if (!Admin.isAdmin(flockEvent.userId)){
-        res.render("/widgests/not_admin");
+    if (Admin.isAdmin(flockEvent.userId)== false){
+        res.sendFile("/widgets/not_admin.html");
         } else {
             if (flockEvent.button =="appLauncherButton"){
-            res.render('/views/admin', {feedback_array : Feedback.getLatest()});
+            res.render('admin', {feedback_array : Feedback.getLatest()});
 
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = ""; //create new review page
