@@ -8,7 +8,6 @@ var jsonParser = bodyParser.json();
 var requestify = require('requestify');
 var http = require('http');
 var mongoose = require('mongoose');
-var sleep = require('sleep');
 
 // Server
 var express = require('express');
@@ -35,13 +34,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("Connected to DB");
 });
+
 // Event Functions
 
 function app_install(req, res) {
     var res;
     console.log(req.body);
-     res.status(200);
-     setTimeout(call_userinfo())
+    res.status(200);
     return res;
 }
 
@@ -70,46 +69,12 @@ function client_pressButton(req,res){
     return res;
 }
 
-// HTTP Requests
-app.post('/events', jsonParser, function(req, res) {
-    console.log(req.body);
-    var event_name =req.body.name;
-    res = funcRoute.get(event_name)(req, res);
-    res.send();
-}
-    
-);
-
-app.get('/widget',jsonParser,function(req,res){
-    console.log(req.query.flockEvent.userId);
-   var flockEvent = JSON.parse(req.query.flockEvent);
-    console.log(flockEvent.userId);
-    //check db is uid is admin
-    
-    if (!Admin.isAdmin(flockEvent.userId)){
-        res.render("/widgests/not_admin");
-        } else {
-            if (flockEvent.button =="appLauncherButton"){
-            res.render('/views/admin', {feedback_array : Feedback.getLatest()});
-
-            } else if (flockEvent.button =="attachmentPickerButton"){
-                res.render = ""; //create new review page
-            }
-        }
-    res.send();
-});
-
-app.post('/widgets/feedback', jsonParser, function(req, res) {
-    Feedback.addFeedback(req.title, req.content);
-});
-
 app.use(express.static('static'));
 
 function send_msg(msg,to_sent,from){
     var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from;
     console.log(requestURL);
-    requestify.get(requestURL)
-         .then(function(response) {
+    requestify.get(requestURL).then(function(response) {
         // Get the response body (JSON parsed or jQuery object for XMLs)
         response.getBody();
     });
@@ -117,8 +82,7 @@ function send_msg(msg,to_sent,from){
 
 function get_roster(token) {
     var requestURL = "https://api.flock.co/v1/roster.listContacts?token="+ token;
-    requestify.get(requestURL)
-         .then(function(response) {
+    requestify.get(requestURL).then(function(response) {
         // Get the response body (JSON parsed or jQuery object for XMLs)
         response.getBody();
         console.log(response);
@@ -126,14 +90,14 @@ function get_roster(token) {
 }
 
 function send_attachments(msg,to_sent,from,attachment){
-        var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from + "&attachments=" + attachment;
+    var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from + "&attachments=" + attachment;
     console.log(requestURL);
-    requestify.get(requestURL)
-         .then(function(response) {
-        // Get the response body (JSON parsed or jQuery object for XMLs)
-        response.getBody();
+    requestify.get(requestURL).then(function(response) {
+    // Get the response body (JSON parsed or jQuery object for XMLs)
+    response.getBody();
     });
 }
+
 function get_userinfo(utoken){
     var requestURL = "https://api.flock.co/v1/users.getInfo?token=" + utoken;
     console.log(requestURL);
@@ -142,7 +106,8 @@ function get_userinfo(utoken){
         return response.body;
     });
 }
- function call_userinfo(newUser){
+
+function call_userinfo(newUser){
         var userinfo = get_userinfo(newUser.token);
         newUser = newUser.updateUserInfo(userinfo.firstname,userinfo.lastname,userinfo.teamID);
         if (userinfo.role!="user"){
