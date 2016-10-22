@@ -48,7 +48,7 @@ function client_pressButton(req,res){
         var attachment = [{
             "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
             "views" : {
-                "widget": {"src" : "http://whowouldwinafight.com/coca-cola-vs-pepsi/","width": 400,"height": 400}
+                "widget": {"src" : "https://flockathon-cryogenicplanet.c9users.io/Static/feedback.html","width": 400,"height": 400}
             }
            } ];
            attachment = JSON.stringify(attachment);
