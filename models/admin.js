@@ -28,7 +28,7 @@ adminSchema.statics.add = function(user){
             console.log("Feedback Saved");
         }
     });
-    
+    return a;
 };
 
 var Admin = mongoose.model('Admin', adminSchema);

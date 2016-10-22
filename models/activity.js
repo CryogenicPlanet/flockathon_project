@@ -15,6 +15,6 @@ var activitySchema = new Schema({
     responses: [responseSchema]
 });
 
-var Activity = mongoose.model('Admin', activitySchema);
+var Activity = mongoose.model('Activity', activitySchema);
 
 module.exports = Activity;

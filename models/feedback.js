@@ -7,9 +7,9 @@ var feedbackSchema = new Schema({
     createdDate : Date
 });
     
-feedbackSchema.statics.addFeedback = function(tn,cn) {
+feedbackSchema.statics.addFeedback = function(t,cn) {
     var f = new Feedback({
-        title: tn,
+        title: t,
         content: cn,
         createdDate: Date.now()
     });
@@ -21,10 +21,17 @@ feedbackSchema.statics.addFeedback = function(tn,cn) {
             console.log("Feedback Saved");
         }
     });
+    return f;
 };
 
 feedbackSchema.statics.getLatest = function(){
-    return Feedback.find().limit(25).sort('createdDate');
+    var feedbackarray;
+    Feedback.find({}, function(err, fbarr) {
+        if (!err){
+            feedbackarray = fbarr;
+        }
+    });
+    return feedbackarray.limit(25).sort('createdDate');
 };
 
 var Feedback  = mongoose.model('Feedback', feedbackSchema);
