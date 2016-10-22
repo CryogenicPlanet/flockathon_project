@@ -99,8 +99,17 @@ app.get('/widget',jsonParser,function(req,res){
         } else {
             if (flockEvent.button =="appLauncherButton"){
                 var feedback = Feedback.getLatest();
+                var user;
                 console.log(feedback);
-                console.log(Feedback.getLatest());
+                var query =  User.find({"userId" : flockEvent.userId},{ teamID :1});
+                query.exec(function(err, x){
+                        if (!err) {
+                         user = x;
+                        }
+                    });
+                console.log(user);
+                console.log(user.teamID);
+                console.log(Feedback.getLatest(user.teamID));
             res.send(pug.renderFile('./views/admin.pug', {header : "Feedback"// ,title : feedback.title, content : feedback.content}));
 }));
             } else if (flockEvent.button =="attachmentPickerButton"){
@@ -110,8 +119,9 @@ app.get('/widget',jsonParser,function(req,res){
     res.send();
 });
 function feedback_form(userId){
+  var user =  User.find({"uid" : userId},{ teamID :1});
     app.post('/widgets/feedback', jsonParser, function(req, res) {
-        Feedback.addFeedback(req.title, req.content);
+        Feedback.addFeedback(req.title, req.content,user.teamID);
     });
 }
 app.use(express.static('static'));
