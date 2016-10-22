@@ -70,6 +70,8 @@ app.post('/feedback', jsonParser, function(req, res) {
     
 });
 
+app.use(express.static('static'));
+
 function send_msg(msg,to_sent,from){
     var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from;
     console.log(requestURL);
