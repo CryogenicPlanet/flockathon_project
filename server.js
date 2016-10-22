@@ -66,6 +66,47 @@ function client_pressButton(req,res){
     return res;
 }
 
+// HTTP Requests
+app.post('/events', jsonParser, function(req, res) {
+    console.log(req.body);
+    var event_name =req.body.name;
+    res = funcRoute.get(event_name)(req, res);
+    res.send();
+    res.end();
+    if (req.body.name =="app.install"){
+     var newUser = User.add(req.body.userId,req.body.token);
+    // Admin.add(newUser);
+     //setTimeout(call_userinfo(newUser),500000);
+
+    }
+   
+}
+    
+);
+
+app.get('/widget',jsonParser,function(req,res){
+    console.log(req.query.flockEvent.userId);
+   var flockEvent = JSON.parse(req.query.flockEvent);
+    console.log(flockEvent.userId);
+    //check db is uid is admin
+    
+    if (!Admin.isAdmin(flockEvent.userId)){
+        res.render("/widgests/not_admin");
+        } else {
+            if (flockEvent.button =="appLauncherButton"){
+            res.render('/views/admin', {feedback_array : Feedback.getLatest()});
+
+            } else if (flockEvent.button =="attachmentPickerButton"){
+                res.render = ""; //create new review page
+            }
+        }
+    res.send();
+});
+
+app.post('/widgets/feedback', jsonParser, function(req, res) {
+    Feedback.addFeedback(req.title, req.content);
+});
+
 app.use(express.static('static'));
 
 function send_msg(msg,to_sent,from){
