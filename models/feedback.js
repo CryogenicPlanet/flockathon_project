@@ -26,7 +26,7 @@ feedbackSchema.statics.addFeedback = function(t, cn, tid) {
     return f;
 };
 
-feedbackSchema.statics.getLatest = function(){
+feedbackSchema.statics.getLatest = function(tid){
     // var feedbackarray;
     // Feedback.find({}, function(err, fbarr) {
     //     if (!err){
@@ -34,9 +34,13 @@ feedbackSchema.statics.getLatest = function(){
     //     }
     // });
     // return feedbackarray.limit(25).sort('createdDate');
-    var query = Feedback.find({});
+    var query = Feedback.find({'teamID': tid}).limit(25).sort({createdDate: -1});
     
-    
+    query.exec(function(err, feedbackarray){
+        if (!err) {
+            console.log(feedbackarray)
+        }
+    });
 };
 
 var Feedback  = mongoose.model('Feedback', feedbackSchema);

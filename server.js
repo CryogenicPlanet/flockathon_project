@@ -6,6 +6,7 @@ var bot_token = "e904ab93-3bcc-4d9c-80aa-45fd83f07c7c";
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var requestify = require('requestify');
+var jade = require('jade');
 var http = require('http');
 var mongoose = require('mongoose');
 

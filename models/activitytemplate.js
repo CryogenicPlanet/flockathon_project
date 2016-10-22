@@ -24,7 +24,7 @@ activityTemplateSchema.statics.getList = function(n, accessType, id){
    //    return ActivityTemplate.find().limit(n);  //TODO check admin or group list
    // }
    return ActivityTemplate.find({'owner.ownerID': id}).limit(n);
-}
+};
 
 activityTemplateSchema.statics.add = function(oType, oID){
   var at = new ActivityTemplate({
