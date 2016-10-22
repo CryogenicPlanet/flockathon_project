@@ -12,7 +12,7 @@ var userSchema = new Schema({
 });
 
 
-userSchema.statics.addUser = function(fn, ln, tid, uid) {
+userSchema.statics.add = function(fn, ln, tid, uid) {
     var u = new User({
         firstname: fn,
         lastname: ln,
