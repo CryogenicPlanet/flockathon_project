@@ -86,19 +86,20 @@ app.post('/events', jsonParser, function(req, res) {
 });
 
 app.get('/widget',jsonParser,function(req,res){
-    var flockEvent = JSON.parse(req.query.flockEvent);
-    if (!Admin.isAdmin(flockEvent.userId)) {
-        res.sendFile("/widgets/not_admin.html");
-    }
-    else {
-        var btn = flockEvent.button;
-        if (btn == "appLauncherButton") {
+    // var flockEvent = JSON.parse(req.query.flockEvent);
+    // if (!Admin.isAdmin(flockEvent.userId)) {
+    //     res.sendFile("/widgets/not_admin.html");
+    // }
+    // else {
+    //     var btn = flockEvent.button;
+    //     if (btn == "appLauncherButton") {
+    //         var feedback = Feedback.getLatest();
             
-        }
-        else if (btn == "attachmentPickerButton") {
+    //     }
+    //     else if (btn == "attachmentPickerButton") {
             
-        }
-    }
+    //     }
+    // }
 //     if (Admin.isAdmin(flockEvent.userId)== false){
 //         res.sendFile("/widgets/not_admin.html");
 //         } else {
