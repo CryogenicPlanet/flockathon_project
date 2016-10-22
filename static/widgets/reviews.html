@@ -10,13 +10,19 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
-var nums = 1;
-var d = document.getElementById('row');
+var fcount = 1;
 $(document).ready(function(){
 $("#btn2").click(function(){
-nums++;
-        $(".row").append("<div class='input-field'><i class='material-icons prefix'>mode_edit</i><textarea id=nums class='materialize-textarea'></textarea></div>");
+fcount++;
+        $(".row").append("<div class='input-field'fcount><i class='material-icons prefix'>mode_edit</i><textarea id=nums class='materialize-textarea'></textarea></div>");
     });
+
+$("#btn4").click(function(){
+if(fcount > 1){
+fcount = 0;
+$(".input-field").remove();}
+});
+
 });
 
 </script>
@@ -46,8 +52,10 @@ nums++;
       </div>
     </div>
 
-<button id = "btn2" class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">add</i></button>
-<button id = "btn3" class="btn-floating btn-large waves-effect waves-light red" types = "send"><i class="material-icons">send</i></button>
+<button id = "btn2" class="btn-floating tooltipped btn-large waves-effect waves-light red" data-position="bottom" data-delay="50" data-tooltip="Add New"><i class="material-icons">add</i></button>
+<button id = "btn4" class="btn-floating tooltipped btn-large waves-effect waves-light red" data-position="bottom" data-delay="50" data-tooltip="Reset">Reset</button>
+<button id = "btn3" class="btn-floating tooltipped btn-large waves-effect waves-light red" type = "send" data-position="bottom" data-delay="50" data-tooltip="Send"><i class="material-icons">send</i></button>
+
 
   </body>
 </html>
