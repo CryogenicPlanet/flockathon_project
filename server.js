@@ -8,6 +8,7 @@ var server = app.listen(port);
 
 // Libraries
 var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 var requestify = require('requestify');
 var http = require('http');
 var funcRoute = new Map();
@@ -18,7 +19,7 @@ funcRoute.set("app.install", install)
 // Event Functions
 function install(req, res) {
     var res;
-    console.log(reqbody);
+    console.log(req.body);
     res.status(200);
     return res;
 }
