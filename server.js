@@ -1,6 +1,6 @@
 // Environment Variables
 var port = process.env.PORT;
-var bot_token = "e904ab93-3bcc-4d9c-80aa-45fd83f07c7c";
+var bot_token = "1fec20c7-6f0e-43af-ac8f-bddd7abe8f76";
 
 // Libraries
 var bodyParser = require('body-parser');
@@ -31,6 +31,12 @@ var compiledAdmin = pug.compileFile('./views/admin.pug');
 var funcRoute = new Map();
 funcRoute.set("app.install", app_install);
 funcRoute.set("client.pressButton", client_pressButton);
+    
+var buttonroute = new Map();
+buttonroute.set("attachmentPicker", attachmentPickerButton);
+buttonroute.set("chatTabButton", chatTabButtonEvent);
+buttonroute.set("appLauncherButton", appLauncherButtonEvent);
+
 
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
@@ -50,25 +56,34 @@ function app_install(req, res) {
 
 function client_pressButton(req,res){
     console.log(req.body);
-    var button_route = new Map();
-    button_route.set("chatTabButton", chat_tab);
     var button_type = req.body.button;
-    res = button_route.get(button_type)(req,res);
-    function chat_tab(req,res){
-        var msg = "Feedback Form";
-        var to_sent = req.body.userId;
-        var attachment = [{
-            "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
-            "views" : {
-                "widget": {"src" : "https://flockathon-cryogenicplanet.c9users.io/widgets/feedback.html","width": 400,"height": 400}
-            }
-           }];
-           attachment = JSON.stringify(attachment);
-        send_attachments(msg,to_sent,bot_token,attachment);
-        feedback_form(req.body.userId);
-        return res;
-    }
+    res = buttonroute.get(button_type)(req, res);
     return res;
+}
+
+function attachmentPickerButton(req, res) {
+    var msg = "Feedback-Form";
+    var to_sent = req.body.userId;
+    var attachment = [{
+        "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
+        "views" : {
+            "widget": {"src" : "https://flockathon-project-lunaroyster.c9users.io/widgets/feedback.html","width": 400,"height": 400}
+        }
+    }];
+    attachment = JSON.stringify(attachment);
+    send_attachments(msg,to_sent,bot_token,attachment);
+    return res;
+}
+
+function chatTabButtonEvent(req, res) {
+    
+}
+
+function appLauncherButtonEvent(req, res) {
+    Feedback.getLatest(function(fbarray) {
+        console.log(fbarray);
+        res.send(pug.renderFile('./views/admin.pug', {header : "Feedback", feedbackarray: fbarray}));
+    });
 }
 
 // HTTP Requests
@@ -78,74 +93,28 @@ app.post('/events', jsonParser, function(req, res) {
     res = funcRoute.get(event_name)(req, res);
     res.send();
     res.end();
-    if (req.body.name =="app.install"){
-        var newUser = User.add(req.body.userId,req.body.token);
-        Admin.add(newUser);
-        //setTimeout(call_userinfo(newUser),500000);
+});
+
+app.get('/events', jsonParser, function(req,res){
+  var flockEvent = JSON.parse(req.query.flockEvent);
+    console.log(flockEvent);
+    if (!Admin.isAdmin(flockEvent.userId)){
+        res.sendFile("/widgets/not_admin.html");
+    } 
+    else {
+        res = buttonroute.get(flockEvent.button)(req, res);
     }
 });
 
-app.get('/widget',jsonParser,function(req,res){
-
-   var flockEvent = JSON.parse(req.query.flockEvent);
-    console.log(flockEvent.userId);
-    //check db is uid is admin
-    
-    if (Admin.isAdmin(flockEvent.userId)== false){
-        res.sendFile("/widgets/not_admin.html");
-        } else {
-            if (flockEvent.button =="appLauncherButton"){
-                var feedback = Feedback.getLatest();
-            res.send(pug.renderFile('./views/admin.pug', {header : "Feedback"}));
-
-            } else if (flockEvent.button =="attachmentPickerButton"){
-                res.render = ""; //create new review page
-            }
-        }
-    res.send();
-    // var flockEvent = JSON.parse(req.query.flockEvent);
-    // if (!Admin.isAdmin(flockEvent.userId)) {
-    //     res.sendFile("/widgets/not_admin.html");
-    // }
-    // else {
-    //     var btn = flockEvent.button;
-    //     if (btn == "appLauncherButton") {
-    //         var feedback = Feedback.getLatest();
-            
-    //     }
-    //     else if (btn == "attachmentPickerButton") {
-            
-    //     }
-    // }
-//     if (Admin.isAdmin(flockEvent.userId)== false){
-//         res.sendFile("/widgets/not_admin.html");
-//         } else {
-//             if (flockEvent.button =="appLauncherButton"){
-//                 var feedback = Feedback.getLatest();
-//                 var user;
-//                 console.log(feedback);
-//                 var query =  User.find({"userId" : flockEvent.userId},{ teamID :1});
-//                 query.exec(function(err, x){
-//                         if (!err) {
-//                          user = x;
-//                         }
-//                     });
-//                 console.log(user);
-//                 console.log(user.teamID);
-//                 console.log(Feedback.getLatest(user.teamID));
-//             res.send(pug.renderFile('./views/admin.pug', {header : "Feedback"// ,title : feedback.title, content : feedback.content}));
-// }));
-//             } else if (flockEvent.button =="attachmentPickerButton"){
-//                 res.render = ""; //create new review page
-//             }
-//         }
-//     res.send();
-
+app.post('/widgets/feedback', jsonParser, function(req, res) {
+    Feedback.addFeedback(req.title, req.content, function(f){
+        console.log(f.title);
+    });
 });
 
-    app.post('/widgets/feedback', jsonParser, function(req, res) {
-        Feedback.addFeedback(req.title, req.content);
-    });
+// app.post('/responses', jsonParser, function(req, res) {
+    
+// });
 
 app.use(express.static('static'));
 
@@ -171,8 +140,8 @@ function send_attachments(msg,to_sent,from,attachment){
     var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from + "&attachments=" + attachment;
     console.log(requestURL);
     requestify.get(requestURL).then(function(response) {
-    // Get the response body (JSON parsed or jQuery object for XMLs)
-    response.getBody();
+    // Get the response body (JSON parsed or jQuery object for XMLs) // TODO: fix request
+        response.getBody();
     });
 }
 

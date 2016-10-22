@@ -1,0 +1,13 @@
+var mongoose = require('mongoose');
+var User = require("./models/user");
+var Admin = require("./models/admin");
+var Activity = require("./models/activity");
+var Team = require("./models/team");
+var ActivityTemplate = require("./models/activitytemplate");
+var Feedback = require("./models/feedback");
+
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+

@@ -9,22 +9,19 @@ var feedbackSchema = new Schema({
 });
     
 // feedbackSchema.statics.addFeedback = function(t, cn, tid) {
-feedbackSchema.statics.addFeedback = function(t, cn) {
+feedbackSchema.statics.addFeedback = function(t, cn, cb) {
     var f = new Feedback({
         title: t,
         content: cn,
-        teamID: tid,
+        // teamID: tid,
         createdDate: Date.now()
     });
-    f.save(function (err) {
-        if (err) {
-            return err;
-        }
-        else {
-            console.log("Feedback Saved");
+    f.save(function(err) {
+        if (!err) {
+            console.log("Feedback added: " + t);
+            cb(f);
         }
     });
-    return f;
 };
 
 // feedbackSchema.statics.getLatest = function(tid){
@@ -39,7 +36,7 @@ feedbackSchema.statics.addFeedback = function(t, cn) {
 //     });
 // };
 
-feedbackSchema.statics.getLatest = function(){
+feedbackSchema.statics.getLatest = function(cb){
     // var query = Feedback..limit(25).sort({createdDate: -1});
     // query.exec(function(err, feedbackarray){
     //     if (!err) {
@@ -48,11 +45,15 @@ feedbackSchema.statics.getLatest = function(){
     //         return "error" + err;
     //     }
     // });
-    var feedbackarray;
-    Feedback.find({}, function(err, feedbackarray) {
-        if (err) throw err;
+    // Feedback.find({}, function(err, fbarray) {
+    //     if (err) throw err;
+    //     console.log(fbarray);
+    //     cb(fbarray);
+    // });
+    Feedback.find().lean().exec(function(err, fbarr){
+        console.log(fbarr);
+        cb(fbarr);
     });
-    return(feedbackarray);
 };
 
 var Feedback  = mongoose.model('Feedback', feedbackSchema);

@@ -1,3 +1,5 @@
+- console.log(feedbackarray);
+- var fbarr = feedbackarray;
 doctype html
 head
   // Compiled and minified CSS
@@ -17,9 +19,13 @@ script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js'
   nav
     .nav-wrapper.teal.darken-1
       a.brand-logo.center(href='#') EmploiBack
-            .container 
-                  .row
-                    .col.s12  
-                      span.blue-text.text-darken-2
-                          h3 #{header}
+  .container 
+    .row
+      .col.s12  
+        span.blue-text.text-darken-2
+            h3 #{header}
+            ul
+              each fb in fbarr
+                li= fb.title
+                          
                               
