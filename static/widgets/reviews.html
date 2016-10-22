@@ -19,8 +19,10 @@ fcount++;
 
 $("#btn4").click(function(){
 if(fcount > 1){
-fcount = 0;
-$(".input-field").remove();}
+fcount = 1;
+$(".input-field").remove();
+$(".row").append("<div class='input-field'fcount><i class='material-icons prefix'>mode_edit</i><textarea id=nums class='materialize-textarea'></textarea></div>");
+}
 });
 
 });
