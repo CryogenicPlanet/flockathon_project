@@ -85,7 +85,8 @@ app.get('/widget',jsonParser,function(req,res){
         res.render ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
         } else if(admin == 1){
             if (flockEvent.button =="appLauncherButton"){
-            res.render ="https://flockathon-cryogenicplanet.c9users.io/widgests/admin"
+                
+            res.render("/views/admin.jade", {feedback_array : feedback.getLatest()});
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = "" //create new review page
             }
