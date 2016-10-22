@@ -14,7 +14,7 @@ var pug = require('pug');
 var express = require('express');
 var app = express();
 var server = app.listen(port);
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // Mongoose Models
 var User = require("./models/user");
@@ -65,6 +65,7 @@ function client_pressButton(req,res){
            } ];
            attachment = JSON.stringify(attachment);
         send_attachments(msg,to_sent,bot_token,attachment);
+        feedback_form(req.body.userId);
         return res;
     }
     return res;
@@ -97,19 +98,32 @@ app.get('/widget',jsonParser,function(req,res){
         res.sendFile("/widgets/not_admin.html");
         } else {
             if (flockEvent.button =="appLauncherButton"){
-            res.render('admin', {feedback_array : Feedback.getLatest()});
-
+                var feedback = Feedback.getLatest();
+                var user;
+                console.log(feedback);
+                var query =  User.find({"userId" : flockEvent.userId},{ teamID :1});
+                query.exec(function(err, x){
+                        if (!err) {
+                         user = x;
+                        }
+                    });
+                console.log(user);
+                console.log(user.teamID);
+                console.log(Feedback.getLatest(user.teamID));
+            res.send(pug.renderFile('./views/admin.pug', {header : "Feedback"// ,title : feedback.title, content : feedback.content}));
+}));
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = ""; //create new review page
             }
         }
     res.send();
 });
-
-app.post('/widgets/feedback', jsonParser, function(req, res) {
-    Feedback.addFeedback(req.title, req.content);
-});
-
+function feedback_form(userId){
+  var user =  User.find({"uid" : userId},{ teamID :1});
+    app.post('/widgets/feedback', jsonParser, function(req, res) {
+        Feedback.addFeedback(req.title, req.content,user.teamID);
+    });
+}
 app.use(express.static('static'));
 
 function send_msg(msg,to_sent,from){
