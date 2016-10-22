@@ -82,15 +82,19 @@ app.get('/widget',jsonParser,function(req,res){
     //check db is uid is admin
     var admin;
     if (admin == 0){
-        res ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
+        res.render ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
         } else if(admin == 1){
-            res ="https://flockathon-cryogenicplanet.c9users.io/widgests/admin"
+            if (flockEvent.button =="appLauncherButton"){
+            res.render ="https://flockathon-cryogenicplanet.c9users.io/widgests/admin"
+            } else if (flockEvent.button =="attachmentPickerButton"){
+                res.render = "" //create new review page
+            }
         }
     res.send();
 });
 
 app.post('/feedback', jsonParser, function(req, res) {
-    
+    // add req.title,req.content
 });
 
 app.use(express.static('static'));
