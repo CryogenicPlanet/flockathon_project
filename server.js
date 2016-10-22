@@ -6,6 +6,7 @@ var bot_token = "e904ab93-3bcc-4d9c-80aa-45fd83f07c7c";
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var requestify = require('requestify');
+var jade = require('jade');
 var http = require('http');
 var mongoose = require('mongoose');
 
@@ -94,7 +95,7 @@ app.get('/widget',jsonParser,function(req,res){
         res.render("/widgests/not_admin");
         } else {
             if (flockEvent.button =="appLauncherButton"){
-            res.render('/views/admin', {feedback_array : Feedback.getLatest()});
+            res.render('admin', {feedback_array : Feedback.getLatest()});
 
             } else if (flockEvent.button =="attachmentPickerButton"){
                 res.render = ""; //create new review page
