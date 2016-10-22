@@ -26,12 +26,14 @@ funcRoute.set("app.install", install)
 funcRoute.set("client.pressButton",Button_press)
 
 // Event Functions
+
 function install(req, res) {
     var res;
     console.log(req.body);
     res.status(200);
     return res;
 }
+
 function Button_press(req,res){
     var button_route = new Map();
     button_route.set("chatTabButton",chat_tab)
@@ -55,6 +57,7 @@ function Button_press(req,res){
     }
     return res;
 }
+
 // HTTP Requests
 app.post('/events', jsonParser, function(req, res) {
     console.log(req.body);
@@ -76,6 +79,7 @@ function send_msg(msg,to_sent,from){
         response.getBody();
     });
 }
+
 function get_roster(token) {
     var requestURL = "https://api.flock.co/v1/roster.listContacts?token="+ token;
     requestify.get(requestURL)
@@ -85,6 +89,7 @@ function get_roster(token) {
         console.log(response);
     });
 }
+
 function send_attachments(msg,to_sent,from,attachment){
         var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from + "&attachments=" + attachment;
     console.log(requestURL);
