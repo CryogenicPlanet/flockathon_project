@@ -14,13 +14,6 @@ var express = require('express');
 var app = express();
 var server = app.listen(port);
 
-mongoose.connect('mongodb://localhost/test');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("Connected to DB");
-});
-var funcRoute = new Map();
 
 // Mongoose Models
 var User = require("./models/user");
@@ -30,9 +23,17 @@ var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
 
 // Event Name-Function Mappings
+var funcRoute = new Map();
 funcRoute.set("app.install", app_install)
 funcRoute.set("client.pressButton", client_pressButton)
 
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Connected to DB");
+    console.log(User.addUser());
+});
 // Event Functions
 
 function app_install(req, res) {

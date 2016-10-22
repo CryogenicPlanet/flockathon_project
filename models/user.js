@@ -11,4 +11,25 @@ var userSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('User', userSchema);
+
+userSchema.statics.addUser = function(fn, ln, tid, uid) {
+    var u = new User({
+        firstname: fn,
+        lastname: ln,
+        teamID: tid,
+        userID: uid
+    });
+    u.save(function (err) {
+        if (err) {
+            return err;
+        }
+        else {
+            console.log("Post saved");
+        }
+    });
+}
+
+
+var User  = mongoose.model('User', userSchema);
+
+module.exports = User;
