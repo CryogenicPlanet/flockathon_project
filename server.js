@@ -107,9 +107,18 @@ app.get('/events', jsonParser, function(req,res){
 });
 
 app.post('/widgets/feedback', jsonParser, function(req, res) {
-    Feedback.addFeedback(req.title, req.content, function(f){
-        console.log(f.title);
+    var f = new Feedback({
+        title: req.title,
+        content: req.content,
+        createdDate: Date.now()
     });
+    f.save(function (err, f) {
+        if (err) return console.error(err);
+    });
+});
+
+app.post('/widgets/review', jsonParser, function(req, res) {
+    
 });
 
 // app.post('/responses', jsonParser, function(req, res) {
