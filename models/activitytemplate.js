@@ -15,6 +15,13 @@ var activityTemplateSchema = new Schema({
    questions: [questionSchema]
 });
 
+
+activityTemplateSchema.statics.getList = function(n){
+   return ActivityTemplate.find().limit(n);
+}
+
+
+
 var ActivityTemplate = mongoose.model('activityTemplate', activityTemplateSchema);
 
 module.exports = ActivityTemplate;
