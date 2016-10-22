@@ -16,17 +16,17 @@ var funcRoute = new Map();
 funcRoute.set("app.install", install)
 
 // Event Functions
-function install(reqbody) {
+function install(req, res) {
     var res;
     console.log(reqbody);
     res.status(200);
     return res;
 }
 // HTTP Requests
-app.post('/events', jsonParser ,function (res,req){
+app.post('/events', jsonParser ,function (req, res) {
     console.log("New event");
     console.log(req.body);
     var event_name =req.body.name;
-    res = funcRoute.get(event_name)(req.body);
+    res = funcRoute.get(event_name)(req, res);
     res.send();
 });
