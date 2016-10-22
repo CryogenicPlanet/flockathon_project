@@ -9,8 +9,8 @@ var feedbackSchema = new Schema({
     
 feedbackSchema.statics.addFeedback = function(tn,cn) {
     var f = new Feedback({
-        title : tn,
-        content : cn,
+        title: tn,
+        content: cn,
         createdDate: Date.now()
     });
     f.save(function (err) {

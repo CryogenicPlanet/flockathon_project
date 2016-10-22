@@ -18,7 +18,7 @@ var activityTemplateSchema = new Schema({
 
 activityTemplateSchema.statics.getList = function(n, accessType, id){
    if (accessType == "team") {
-      return ActivityTemplate.find({owner.ownerID: id}).limit(n);  //TODO check admin or group list
+      return ActivityTemplate.find({'owner.ownerID': id}).limit(n);  //TODO check admin or group list
    }
    else if (accessType == "admin") {
       return ActivityTemplate.find().limit(n);  //TODO check admin or group list

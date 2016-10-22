@@ -14,7 +14,7 @@ var sleep = require('sleep');
 var express = require('express');
 var app = express();
 var server = app.listen(port);
-
+app.set('view engine', 'jade');
 
 // Mongoose Models
 var User = require("./models/user");
@@ -41,6 +41,7 @@ function app_install(req, res) {
     var res;
     console.log(req.body);
      res.status(200);
+     setTimeout(call_userinfo())
     return res;
 }
 
@@ -75,14 +76,6 @@ app.post('/events', jsonParser, function(req, res) {
     var event_name =req.body.name;
     res = funcRoute.get(event_name)(req, res);
     res.send();
-    res.end();
-    if (req.body.name =="app.install"){
-     var newUser = User.add(req.body.userId,req.body.token);
-     setTimeout(call_userinfo(newUser),500000);
-     console.log("5 seconds later");
-     
-    }
-   
 }
     
 );
@@ -150,9 +143,9 @@ function get_userinfo(utoken){
     });
 }
  function call_userinfo(newUser){
-                var userinfo = get_userinfo(newUser.token);
-                newUser = newUser.updateUserInfo(userinfo.firstname,userinfo.lastname,userinfo.teamID);
-                if (userinfo.role!="user"){
-                    Admin.add(newUser);
-                }
- }
+        var userinfo = get_userinfo(newUser.token);
+        newUser = newUser.updateUserInfo(userinfo.firstname,userinfo.lastname,userinfo.teamID);
+        if (userinfo.role!="user"){
+        Admin.add(newUser);
+    }
+}
