@@ -49,13 +49,18 @@ function Button_press(req,res){
     return res;
 }
 // HTTP Requests
-app.post('/events', jsonParser ,function (req, res) {
+app.post('/events', jsonParser, function(req, res) {
     console.log("New event");
     console.log(req.body);
     var event_name =req.body.name;
     res = funcRoute.get(event_name)(req, res);
     res.send();
 });
+
+app.post('/feedback', jsonParser, function(req, res) {
+    
+});
+
 function send_msg(msg,to_sent,from){
     var requestURL = "https://api.flock.co/v1/chat.sendMessage?to=" + to_sent + "&text=" + msg + "&token=" + from;
     console.log(requestURL);
