@@ -40,14 +40,18 @@ feedbackSchema.statics.addFeedback = function(t, cn) {
 // };
 
 feedbackSchema.statics.getLatest = function(){
-    var query = Feedback.find({}).limit(25).sort({createdDate: -1});
+    // var query = Feedback..limit(25).sort({createdDate: -1});
+    // query.exec(function(err, feedbackarray){
+    //     if (!err) {
+    //         return feedbackarray;
+    //     } else {
+    //         return "error" + err;
+    //     }
+    // });
     
-    query.exec(function(err, feedbackarray){
-        if (!err) {
-            return feedbackarray;
-        } else {
-            return "error" + err;
-        }
+    Feedback.find({}, function(err, feedbackarray) {
+        if (err) throw err;
+        console.log(feedbackarray);
     });
 };
 
