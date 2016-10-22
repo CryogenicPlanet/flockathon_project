@@ -62,7 +62,7 @@ function client_pressButton(req,res){
             "views" : {
                 "widget": {"src" : "https://flockathon-cryogenicplanet.c9users.io/widgets/feedback.html","width": 400,"height": 400}
             }
-           } ];
+           }];
            attachment = JSON.stringify(attachment);
         send_attachments(msg,to_sent,bot_token,attachment);
         feedback_form(req.body.userId);
@@ -79,15 +79,11 @@ app.post('/events', jsonParser, function(req, res) {
     res.send();
     res.end();
     if (req.body.name =="app.install"){
-     var newUser = User.add(req.body.userId,req.body.token);
-     Admin.add(newUser);
-     //setTimeout(call_userinfo(newUser),500000);
-
+        var newUser = User.add(req.body.userId,req.body.token);
+        Admin.add(newUser);
+        //setTimeout(call_userinfo(newUser),500000);
     }
-   
-}
-    
-);
+});
 
 app.get('/widget',jsonParser,function(req,res){
    var flockEvent = JSON.parse(req.query.flockEvent);
@@ -118,12 +114,14 @@ app.get('/widget',jsonParser,function(req,res){
         }
     res.send();
 });
+
 function feedback_form(userId){
   var user =  User.find({"uid" : userId},{ teamID :1});
     app.post('/widgets/feedback', jsonParser, function(req, res) {
         Feedback.addFeedback(req.title, req.content,user.teamID);
     });
 }
+
 app.use(express.static('static'));
 
 function send_msg(msg,to_sent,from){
