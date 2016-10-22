@@ -16,7 +16,7 @@ var funcRoute = new Map();
 
 // Event Name-Function Mappings
 funcRoute.set("app.install", install)
-funcRoute.set("client.PressButton",Button_press)
+funcRoute.set("client.pressButton",Button_press)
 
 // Event Functions
 function install(req, res) {
@@ -39,12 +39,14 @@ function Button_press(req,res){
         var attachment = [{
             "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
             "views" : {
-                "widget": {"src" : "","width": 400,"height": 400}
+                "widget": {"src" : "http://whowouldwinafight.com/coca-cola-vs-pepsi/","width": 400,"height": 400}
             }
            } ];
+           attachment = JSON.stringify(attachment);
         send_attachments(msg,to_sent,bot_token,attachment);
+        return res;
     }
-    
+    return res;
 }
 // HTTP Requests
 app.post('/events', jsonParser ,function (req, res) {
