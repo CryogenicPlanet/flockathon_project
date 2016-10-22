@@ -2,16 +2,18 @@
 var port = process.env.PORT;
 var bot_token = "e904ab93-3bcc-4d9c-80aa-45fd83f07c7c";
 
-// Server
-var express = require('express');
-var app = express();
-var server = app.listen(port);
-
 // Libraries
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var requestify = require('requestify');
 var http = require('http');
+var mongoose = require('mongoose');
+
+// Server
+var express = require('express');
+var app = express();
+var server = app.listen(port);
+
 var funcRoute = new Map();
 
 // Mongoose Models
