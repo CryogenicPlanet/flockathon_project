@@ -86,6 +86,7 @@ app.post('/events', jsonParser, function(req, res) {
 });
 
 app.get('/widget',jsonParser,function(req,res){
+
    var flockEvent = JSON.parse(req.query.flockEvent);
     console.log(flockEvent.userId);
     //check db is uid is admin
@@ -102,6 +103,44 @@ app.get('/widget',jsonParser,function(req,res){
             }
         }
     res.send();
+    // var flockEvent = JSON.parse(req.query.flockEvent);
+    // if (!Admin.isAdmin(flockEvent.userId)) {
+    //     res.sendFile("/widgets/not_admin.html");
+    // }
+    // else {
+    //     var btn = flockEvent.button;
+    //     if (btn == "appLauncherButton") {
+    //         var feedback = Feedback.getLatest();
+            
+    //     }
+    //     else if (btn == "attachmentPickerButton") {
+            
+    //     }
+    // }
+//     if (Admin.isAdmin(flockEvent.userId)== false){
+//         res.sendFile("/widgets/not_admin.html");
+//         } else {
+//             if (flockEvent.button =="appLauncherButton"){
+//                 var feedback = Feedback.getLatest();
+//                 var user;
+//                 console.log(feedback);
+//                 var query =  User.find({"userId" : flockEvent.userId},{ teamID :1});
+//                 query.exec(function(err, x){
+//                         if (!err) {
+//                          user = x;
+//                         }
+//                     });
+//                 console.log(user);
+//                 console.log(user.teamID);
+//                 console.log(Feedback.getLatest(user.teamID));
+//             res.send(pug.renderFile('./views/admin.pug', {header : "Feedback"// ,title : feedback.title, content : feedback.content}));
+// }));
+//             } else if (flockEvent.button =="attachmentPickerButton"){
+//                 res.render = ""; //create new review page
+//             }
+//         }
+//     res.send();
+
 });
 
     app.post('/widgets/feedback', jsonParser, function(req, res) {
