@@ -24,10 +24,10 @@ userSchema.statics.add = function(fn, ln, tid, uid) {
             return err;
         }
         else {
-            console.log("Post saved");
+            console.log("User added.");
         }
     });
-}
+};
 
 
 var User  = mongoose.model('User', userSchema);

@@ -24,8 +24,8 @@ var ActivityTemplate = require("./models/activitytemplate");
 
 // Event Name-Function Mappings
 var funcRoute = new Map();
-funcRoute.set("app.install", app_install)
-funcRoute.set("client.pressButton", client_pressButton)
+funcRoute.set("app.install", app_install);
+funcRoute.set("client.pressButton", client_pressButton);
 
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
@@ -82,13 +82,13 @@ app.get('/widget',jsonParser,function(req,res){
     //check db is uid is admin
     var admin;
     if (admin == 0){
-        res.render ="https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin"
+        res.render = "https://flockathon-cryogenicplanet.c9users.io/widgests/not_admin";
         } else if(admin == 1){
             if (flockEvent.button =="appLauncherButton"){
-                
             res.render("/views/admin.jade", {feedback_array : feedback.getLatest()});
+
             } else if (flockEvent.button =="attachmentPickerButton"){
-                res.render = "" //create new review page
+                res.render = ""; //create new review page
             }
         }
     res.send();

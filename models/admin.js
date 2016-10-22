@@ -8,4 +8,15 @@ var adminSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Admin', adminSchema);
+adminSchema.statics.isAdmin = function(uid) {
+    if (Admin.findOne({relatedUser:uid})) {
+        return(true);
+    }
+    else {
+        return(false);
+    }
+};
+
+var Admin = mongoose.model('Admin', adminSchema);
+
+module.exports = Admin;
