@@ -29,13 +29,16 @@ userSchema.statics.add = function(uid, token) {
     return u;
 };
 userSchema.methods.updateUserInfo = function(fn, ln, tid, cb) {
-    return this;
+    this.firstname = fn;
+    this.lastname = ln;
+    this.teamID = tid;
+    this.save(cb);
 };
 userSchema.methods.updateToken = function(token, cb) {
     // this.model('User').update({userID: uid}, {$set: {userToken: token}});
     // this.update({userID: uid}, {$set: {userToken: token}});
     this.userToken = token;
-    cb(this);
+    this.save(cb);
 };
 
 
