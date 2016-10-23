@@ -124,6 +124,10 @@ app.post('/widgets/review', jsonParser, function(req, res) {
     
 });
 
+app.put('/widgets/review', jsonParser, function(req, res) {
+    
+}
+
 // app.post('/responses', jsonParser, function(req, res) {
     
 // });

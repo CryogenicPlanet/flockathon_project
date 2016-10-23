@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var questionSchema = new Schema({
    //questionType: String,
-   content: String,
-   quesID : Number
+   content: String
 });
 
 var activityTemplateSchema = new Schema({
