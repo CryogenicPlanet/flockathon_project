@@ -26,7 +26,7 @@ var Feedback = require("./models/feedback");
 
 // Pug compiled files
 var compiledAdmin = pug.compileFile('./views/admin.pug');
-var review = require("review");
+var review = require("./review.js");
 // Event Name-Function Mappings
 var funcRoute = new Map();
 funcRoute.set("app.install", app_install);
@@ -76,7 +76,8 @@ function attachmentPickerButton(req, res) {
 }
 
 function chatTabButtonEvent(req, res) {
-    
+    res.status(200);
+    res.sendFile('static/widgets/reviews.html', { root : __dirname});
 }
 
 function appLauncherButtonEvent(req, res) {
@@ -122,14 +123,14 @@ app.post('/widgets/feedback', function(req, res) {
 
 app.post('/widgets/review', jsonParser, function(req, res) {
    
-  var newReview =  review.newReview(req,res);
-  var sent_to = review.sendReview(newReview.currentReview,newReview.questions);
+  var newReview =  eeviewnewReview(req,res);
+  var sent_to = eeviewsendReview(newReview.currentReview,newReview.questions);
   res.send(sent_to);
 });
 
 app.put('/widgets/review', jsonParser, function(req, res) {
     
-}
+});
 
 // app.post('/responses', jsonParser, function(req, res) {
     

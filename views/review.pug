@@ -25,6 +25,7 @@ html
     nav
       .nav-wrapper.green.lighten-3
         a.brand-logo.center.orange-text.text-darken-3(href='#') Feedback:
+          form(method="post", action="")
             ul(class="collapsible popout" data-collapsible="accordion")
               each q in ActivityTemplate.questions
                 li
