@@ -5,9 +5,9 @@ var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
 var pug = require('pug');
+var exports = module.exports = {};
 
-
-var newReview = (function(req,res){
+exports.newReview = function(req,res){
      var newQuestions =req.body.nums;
      var i = 0;
      var questions;
@@ -19,22 +19,21 @@ var newReview = (function(req,res){
     var currentReview = ({'StartId' : questions._id[0],'Size' : i});
      return [questions,currentReview];
      
-});
-var sendReview =(function(currentReview,questions){
+};
+exports.sendReview = function(currentReview,questions){
     //getting questions
     var array;
     var x =0;
     for (var i = currentReview.size;i >= 0;i--){
-   array[x] = ActivityTemplate.find({'_Id' : currentReview.StartId +i},'question.content',function (err,question ) {
-  if (err) return handleError(err);
-  console.log(question);
-    });
-    x++;
-    return  array
-}
+        array[x] = ActivityTemplate.find({'_Id' : currentReview.StartId +i},'question.content',function (err,question ) {
+        if (err) return handleError(err);
+        console.log(question);
+        });
+        x++;
+        return  array
+    }
+};
 
+exports.reviewCompleted = function(req,res){
     
-});
-var reviewCompleted= (function(req,res){
-    
-});
+};
