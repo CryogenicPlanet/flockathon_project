@@ -76,10 +76,9 @@ function attachmentPickerButton(req, res) {
 }
 
 function chatTabButtonEvent(req, res) {
-    var reqbody = req.body;
-    console.log(reqbody);
+    
     res.status(200);
-    res.sendFile('static/widgets/reviews.html?userId=\'' + reqbody.userId + '\'', { root : __dirname});
+    res.sendFile('static/widgets/reviews.html', { root : __dirname});
 }
 
 function appLauncherButtonEvent(req, res) {
@@ -125,7 +124,7 @@ app.post('/widgets/feedback', function(req, res) {
 });
 
 app.post('/widgets/review', jsonParser, function(req, res) {
-   var newserId = req.body.userid;
+   var newserId = $uID;
   var newReview =  review.newReview(req,res);
   var array = review.sendReview(newReview.currentReview,newReview.questions);
    var msg = "Feedback-Form";
@@ -143,8 +142,8 @@ app.post('/widgets/review', jsonParser, function(req, res) {
         "views" : {
             "widget": {"src" : url,"width": 400,"height": 400}
     }}]
-     for (userId in roster.body){
-    var to_sent = userId;
+     for (i = 0,len = roster.body.length;i<len;i++){
+    var to_sent = roster[i].body.userId;
      send_attachments(msg,to_sent,bot_token,attachment);
     }
 });

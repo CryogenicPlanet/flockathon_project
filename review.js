@@ -9,15 +9,19 @@ var exports = module.exports = {};
 var i;
 var len;
 exports.newReview = function(req,res){
-     var newQuestions =req.body.nums;
+     var newQuestions =req.body;
      
-     var questions;
+     var questions = xyz.questions;
+     var xyz = new ActivityTemplate;
      for (i = 0 ;len = newQuestions.length;i< len){
-      questions = ActivityTemplate.addQuestion(newQuestions.nums[i])
+      xyz.addQuestion(newQuestions[i].nums, function(q){
+          questions.push(q);
+      });
      i ++;
      
      }
-    var currentReview = ({'StartId' : questions._id[0],'Size' : i});
+     console.log(questions[0]);
+    var currentReview = ({'StartId' : questions[0]._id,'Size' : i});
      return [questions,currentReview];
      
 };

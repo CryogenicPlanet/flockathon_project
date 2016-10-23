@@ -46,14 +46,14 @@ var activityTemplateSchema = new Schema({
 //     });
 //   return(at);
 // };
-activityTemplateSchema.methods.addQuestion = function(cont){
+activityTemplateSchema.methods.addQuestion = function(cont,cb){
    var question = new Question();
   // question.questionType = qType;
    question.content = cont;
    question.save();
    this.questions.push(question);
    this.save();
-   return question;
+   cb(question);
 };
 activityTemplateSchema.methods.getQuestionById = function(id, callback) {
     Question.findById(id, function(err, q){
