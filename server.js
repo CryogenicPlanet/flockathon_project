@@ -125,8 +125,9 @@ app.post('/widgets/review', jsonParser, function(req, res) {
   var newReview =  review.newReview(req,res);
   var array = review.sendReview(newReview.currentReview,newReview.questions);
    var msg = "Feedback-Form";
-    var to_sent = req.body.userId;
- var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
+    var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
+    
+    var to_sent = ;
     var attachment = [{
         "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
         "views" : {
