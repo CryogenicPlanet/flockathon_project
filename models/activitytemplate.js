@@ -55,6 +55,11 @@ activityTemplateSchema.methods.addQuestion = function(cont){
    this.save();
    return question;
 };
+activityTemplateSchema.methods.getQuestionById = function(id, callback) {
+    Question.findById(id, function(err, q){
+        callback(q);
+    });
+}
 
 var Question = mongoose.model('question', questionSchema);
 var ActivityTemplate = mongoose.model('activityTemplate', activityTemplateSchema);

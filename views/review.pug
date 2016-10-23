@@ -30,6 +30,7 @@ html
               each q in ActivityTemplate.questions
                 li
                   div(class="collapsible-header")= q.content
+                    input(name="ques", type="hidden")= q._id
                   div(class="collapsible-body")
                     input(name='ans', type='text')
                 
