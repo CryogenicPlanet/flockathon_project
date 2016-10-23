@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var questionSchema = new Schema({
-   questionID: String,
    content: String
 });
 
 var responseSchema = new Schema({
     questions: [questionSchema],
+    content : String
 });
 
 var activitySchema = new Schema({

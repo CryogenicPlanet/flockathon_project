@@ -35,5 +35,20 @@ exports.sendReview = function(currentReview,questions){
 };
 
 exports.reviewCompleted = function(req,res){
-    
-};
+    var newAnswwers = req.body.ans;
+    var questions_id = req.body.ques;
+    var i =0;
+    var questions;
+  for (var _id in questions_id){
+      ActivityTemplate.getQuestionById(_id,function (question){
+          questions[i] = question;
+      });
+      i++;
+  }
+  var resp = new Response();
+  i =0;
+  for (var ans in newAnswwers && var content in questions){
+      resp[i] = {'questions' : questions[i], 'content': newAnswwers[i].content};
+  }
+  }
+;
