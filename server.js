@@ -26,7 +26,7 @@ var Feedback = require("./models/feedback");
 
 // Pug compiled files
 var compiledAdmin = pug.compileFile('./views/admin.pug');
-var review = require("review");
+var review = require("./review.js");
 // Event Name-Function Mappings
 var funcRoute = new Map();
 funcRoute.set("app.install", app_install);
@@ -76,7 +76,8 @@ function attachmentPickerButton(req, res) {
 }
 
 function chatTabButtonEvent(req, res) {
-    
+    res.status(200);
+    res.sendFile('static/widgets/reviews.html', { root : __dirname});
 }
 
 function appLauncherButtonEvent(req, res) {
@@ -120,7 +121,7 @@ app.post('/widgets/feedback', function(req, res) {
     res.send();
 });
 
-app.post('/widgets/review', jsonParser, function(req, res) {
+app.post('/widgets/review', jsonParser, function(req, res) 
    
   var newReview =  review.newReview(req,res);
   var array = review.sendReview(newReview.currentReview,newReview.questions);
@@ -128,16 +129,21 @@ app.post('/widgets/review', jsonParser, function(req, res) {
     var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
     
     var to_sent = ;
+
+
+  
+    var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
+
     var attachment = [{
         "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
         "views" : {
             "widget": {"src" : url,"width": 400,"height": 400}
-        }}]
+    }}]
 });
 
 app.put('/widgets/review', jsonParser, function(req, res) {
     
-}
+});
 
 
 
