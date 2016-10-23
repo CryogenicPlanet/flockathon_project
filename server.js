@@ -105,16 +105,19 @@ app.get('/events', jsonParser, function(req,res){
         res = buttonroute.get(flockEvent.button)(req, res);
     }
 });
-
-app.post('/widgets/feedback', jsonParser, function(req, res) {
+app.use(bodyParser.urlencoded({ extended: true }));
+app.post('/widgets/feedback', function(req, res) {
+    console.log(req.body);
     var f = new Feedback({
-        title: req.title,
-        content: req.content,
+        title: req.body.title,
+        content: req.body.content,
         createdDate: Date.now()
     });
     f.save(function (err, f) {
         if (err) return console.error(err);
     });
+    res.status(200);
+    res.send();
 });
 
 app.post('/widgets/review', jsonParser, function(req, res) {
