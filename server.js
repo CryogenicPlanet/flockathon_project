@@ -26,7 +26,7 @@ var Feedback = require("./models/feedback");
 
 // Pug compiled files
 var compiledAdmin = pug.compileFile('./views/admin.pug');
-
+var review = require("review");
 // Event Name-Function Mappings
 var funcRoute = new Map();
 funcRoute.set("app.install", app_install);
@@ -121,7 +121,10 @@ app.post('/widgets/feedback', function(req, res) {
 });
 
 app.post('/widgets/review', jsonParser, function(req, res) {
-    
+   
+  var newReview =  review.newReview(req,res);
+  var sent_to = review.sendReview(newReview.currentReview,newReview.questions);
+  res.send(sent_to);
 });
 
 // app.post('/responses', jsonParser, function(req, res) {

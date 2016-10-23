@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var questionSchema = new Schema({
    //questionType: String,
    content: String,
-   quesID : Number
 });
 
 var activityTemplateSchema = new Schema({
