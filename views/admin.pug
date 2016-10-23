@@ -13,8 +13,8 @@ head
   body
 // Import jQuery before materialize.js
 script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
- script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
-
+script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
+script(type='text/javascript', src='./js/script.js')
 .navbar-fixed
   nav
     .nav-wrapper.teal.darken-1
@@ -24,8 +24,9 @@ script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js'
       .col.s12  
         span.blue-text.text-darken-2
             h3 #{header}
-            ul
+            ul(class="collapsible", data-collapsible="accordion")
               each fb in fbarr
-                li= fb.title
-                          
-                              
+                li
+                  div(class="collapsible-header")= fb.title
+                  div(class="collapsible-body")= fb.content
+                
