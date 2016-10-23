@@ -1,7 +1,7 @@
 // Environment Variables
 var port = process.env.PORT;
 var bot_token = "1fec20c7-6f0e-43af-ac8f-bddd7abe8f76";
-
+var $uID = "u:wx8wxln9n844ne88";
 // Libraries
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -23,7 +23,7 @@ var  Activity = require("./models/activity");
 var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
-
+app.use(bodyParser());
 // Pug compiled files
 var compiledAdmin = pug.compileFile('./views/admin.pug');
 var review = require("./review.js");
@@ -76,8 +76,10 @@ function attachmentPickerButton(req, res) {
 }
 
 function chatTabButtonEvent(req, res) {
+    var reqbody = req.body;
+    console.log(reqbody);
     res.status(200);
-    res.sendFile('static/widgets/reviews.html?userId' + req.body.userId, { root : __dirname});
+    res.sendFile('static/widgets/reviews.html?userId=\'' + reqbody.userId + '\'', { root : __dirname});
 }
 
 function appLauncherButtonEvent(req, res) {
@@ -106,7 +108,8 @@ app.get('/events', jsonParser, function(req,res){
         res = buttonroute.get(flockEvent.button)(req, res);
     }
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+
+
 app.post('/widgets/feedback', function(req, res) {
     console.log(req.body);
     var f = new Feedback({
