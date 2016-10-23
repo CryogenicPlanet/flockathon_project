@@ -6,12 +6,13 @@ var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
 var pug = require('pug');
 var exports = module.exports = {};
-
+var i;
+var len;
 exports.newReview = function(req,res){
      var newQuestions =req.body.nums;
-     var i = 0;
+     
      var questions;
-     for ( var nums in newQuestions){
+     for (i = 0 ;len = newQuestions.length;i< len){
       questions = ActivityTemplate.addQuestion(newQuestions.nums[i])
      i ++;
      
@@ -37,17 +38,16 @@ exports.sendReview = function(currentReview,questions){
 exports.reviewCompleted = function(req,res){
     var newAnswwers = req.body.ans;
     var questions_id = req.body.ques;
-    var i =0;
+    
     var questions;
-  for (var _id in questions_id){
+  for (i =0;len = questions.length;i< len){
       ActivityTemplate.getQuestionById(_id,function (question){
           questions[i] = question;
       });
       i++;
   }
   var resp = new Response();
-  i =0;
-  for (var ans in newAnswwers && var content in questions){
+  for (i =0,len = newAnswwers.length;i< len;i++){
       resp[i] = {'questions' : questions[i], 'content': newAnswwers[i].content};
   }
   }
