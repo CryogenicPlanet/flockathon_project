@@ -77,7 +77,7 @@ function attachmentPickerButton(req, res) {
 
 function chatTabButtonEvent(req, res) {
     res.status(200);
-    res.sendFile('static/widgets/reviews.html', { root : __dirname});
+    res.sendFile('static/widgets/reviews.html?userId' + req.body.userId, { root : __dirname});
 }
 
 function appLauncherButtonEvent(req, res) {
@@ -121,17 +121,18 @@ app.post('/widgets/feedback', function(req, res) {
     res.send();
 });
 
-app.post('/widgets/review', jsonParser, function(req, res) 
-   
+app.post('/widgets/review', jsonParser, function(req, res) {
+   var newserId = req.body.userid;
   var newReview =  review.newReview(req,res);
   var array = review.sendReview(newReview.currentReview,newReview.questions);
    var msg = "Feedback-Form";
     var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
-    
-    var to_sent = ;
-
-
-  
+    var token
+    User.find({'userId' : newserId},'userToken',function (err,user){
+          if (err) return handleError(err);
+        token = user.userToken;
+    });
+    var roster = get_roster(token);
     var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
 
     var attachment = [{
@@ -139,6 +140,10 @@ app.post('/widgets/review', jsonParser, function(req, res)
         "views" : {
             "widget": {"src" : url,"width": 400,"height": 400}
     }}]
+     for (userId in roster.body){
+    var to_sent = userId;
+     send_attachments(msg,to_sent,bot_token,attachment);
+    }
 });
 
 app.put('/widgets/review', jsonParser, function(req, res) {

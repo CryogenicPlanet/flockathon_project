@@ -47,17 +47,13 @@ $(".row").append("<div class='input-field'fcount><i class='material-icons prefix
 <dev><span class = " teal-text text-darken-4"><font size = 4>Reviews</font></span></dev>
 <form method ="post" action="./widgets/review">
     <div class="row green" class="container">
-<<<<<<< HEAD
-      <div class="input-field">
-    <i class="material-icons prefix">mode_edit</i>
-        <textarea id="nums " class="materialize-textarea"></textarea>
-      </div>
-=======
+  <input type="hidden" name="userid" id"user">
+
+
         <div class="input-field">
             <i class="material-icons prefix">mode_edit</i>
             <textarea id="nums" class="materialize-textarea"></textarea>
         </div>
->>>>>>> 13ce1cdcc00bcc0e08e7fbbfde26aca2355f3321
     </div>
     
     <button id = "btn2" class="btn-floating tooltipped btn-large waves-effect waves-light red" data-position="bottom" data-delay="50" data-tooltip="Add New"><i class="material-icons">add</i></button>
@@ -66,4 +62,8 @@ $(".row").append("<div class='input-field'fcount><i class='material-icons prefix
 </form>
 
   </body>
+  <script type="text/javascript" src="">
+     $user = $.url().param('userId');
+      document.getElementById("user").value = $user;
+  </script>
 </html>
