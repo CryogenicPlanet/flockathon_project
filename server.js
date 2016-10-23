@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 // Mongoose Models
 var User = require("./models/user");
 var Admin = require("./models/admin");
-var Activity = require("./models/activity");
+var  Activity = require("./models/activity");
 var Team = require("./models/team");
 var ActivityTemplate = require("./models/activitytemplate");
 var Feedback = require("./models/feedback");
@@ -122,20 +122,30 @@ app.post('/widgets/feedback', function(req, res) {
 });
 
 app.post('/widgets/review', jsonParser, function(req, res) {
-   
-  var newReview =  eeviewnewReview(req,res);
-  var sent_to = eeviewsendReview(newReview.currentReview,newReview.questions);
-  res.send(sent_to);
+
+    var newReview =  review.newReview(req,res);
+    var array = review.sendReview(newReview.currentReview,newReview.questions);
+    var msg = "Feedback-Form";
+    var to_sent = req.body.userId;
+    var url =   pug.compileFile("https://flockathon-project-lunaroyster.c9users.io/views/review.pug",{ questions : array});
+    var attachment = [{
+        "title" : "Feedback Form","description" : "Enter your feedback or complaint below",
+        "views" : {
+            "widget": {"src" : url,"width": 400,"height": 400}
+    }}]
 });
 
 app.put('/widgets/review', jsonParser, function(req, res) {
     
 });
 
+
+
+
 // app.post('/responses', jsonParser, function(req, res) {
     
 // });
-
+ 
 app.use(express.static('static'));
 
 function send_msg(msg,to_sent,from){

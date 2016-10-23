@@ -30,7 +30,11 @@ var sendReview =(function(currentReview,questions){
   console.log(question);
     });
     x++;
-    return pug.renderFile('./views/review.pug', {header : "Reviews", questions: array})
+    return  array
 }
+
+    
+});
+var reviewCompleted= (function(req,res){
     
 });
